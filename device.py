@@ -17,7 +17,7 @@ import config
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _luhn_checksum(number: str) -> int:
-    """Return the Luhn check digit for a numeric string."""
+
     digits = [int(d) for d in number]
     odd_digits = digits[-1::-2]
     even_digits = digits[-2::-2]
@@ -27,9 +27,9 @@ def _luhn_checksum(number: str) -> int:
     return total % 10
 
 
-def _generate_imei() -> str:
-    """Generate a syntactically valid IMEI (15 digits, Luhn-valid)."""
+def imei() -> str:
     
+
     tac = "35" + "".join(random.choices(string.digits, k=6))
     serial = "".join(random.choices(string.digits, k=6))
     partial = tac + serial
@@ -37,13 +37,13 @@ def _generate_imei() -> str:
     return partial + str(check_digit)
 
 
-def _generate_android_id() -> str:
-    """Generate a 16-character hex Android ID."""
+def android_id() -> str:
+   
     return "".join(random.choices("0123456789abcdef", k=16))
 
 
-def _generate_device_fingerprint(model: str, build_id: str, android: str) -> str:
-    """Return a realistic Android build fingerprint."""
+def fingerprint(model: str, build_id: str, android: str) -> str:
+ 
     return (
         f"google/{model.lower().replace(' ', '_')}/"
         f"{model.lower().replace(' ', '_')}:{android}/"
@@ -52,7 +52,7 @@ def _generate_device_fingerprint(model: str, build_id: str, android: str) -> str
 
 
 def _random_chrome_patch() -> str:
-    """Return a slightly randomised Chrome version string."""
+
     major = config.CHROME_MAJOR_VERSION
     minor = 0
     build = random.randint(6360, 6380)
@@ -89,26 +89,13 @@ class DeviceProfile:
             "Accept-Encoding": "gzip, deflate, br",
         }
 
-    def summary(self) -> str:
-        """Human-readable summary for Telegram messages."""
-        return (
-            f"📱 *Device Profile*\n"
-            f"Model: {self.model}\n"
-            f"Android: {self.android_version}\n"
-            f"IMEI: `{self.imei}`\n"
-            f"Android ID: `{self.android_id}`\n"
-            f"Session: `{self.session_id[:8]}…`"
-        )
 
 
 # ── Public factory ────────────────────────────────────────────────────────────
 
 def create_device_profile() -> DeviceProfile:
-    """
-    Create a fresh Pixel 10 Pro device profile with unique per-session
-    identifiers.
-    """
-    chrome_version = _random_chrome_patch()
+
+    chrome_version = chrome_patch()
     template = random.choice(config.USER_AGENT_TEMPLATES)
     user_agent = template.format(
         android=config.ANDROID_VERSION,
@@ -116,14 +103,14 @@ def create_device_profile() -> DeviceProfile:
         build=config.BUILD_ID,
         chrome=chrome_version,
     )
-    fingerprint = _generate_device_fingerprint(
+    fingerprint = device_fingerprint(
         config.DEVICE_MODEL,
         config.BUILD_ID,
         config.ANDROID_VERSION,
     )
     return DeviceProfile(
-        imei=_generate_imei(),
-        android_id=_generate_android_id(),
+        imei=imei(),
+        android_id=android_id(),
         device_fingerprint=fingerprint,
         user_agent=user_agent,
         chrome_version=chrome_version,
