@@ -1,8 +1,8 @@
 """
-Android Pixel 10 Pro device simulator.
+Android Pixel 10 Pro your own device
 
-Each session gets unique identifiers (IMEI, Android ID, device fingerprint,
-Chrome version patch) while the hardware identity remains "Pixel 10 Pro".
+(IMEI, Android ID, device fingerprint,
+Chrome version patch) while the hardware identity "Pixel 10 Pro".
 """
 
 import random
@@ -29,7 +29,7 @@ def _luhn_checksum(number: str) -> int:
 
 def _generate_imei() -> str:
     """Generate a syntactically valid IMEI (15 digits, Luhn-valid)."""
-    # TAC prefix for a generic Android device
+    
     tac = "35" + "".join(random.choices(string.digits, k=6))
     serial = "".join(random.choices(string.digits, k=6))
     partial = tac + serial
