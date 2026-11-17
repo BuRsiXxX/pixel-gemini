@@ -1,6 +1,3 @@
-# Core bot framework
-python-telegram-bot==21.3
-
 # Browser automation
 selenium==4.21.0
 
