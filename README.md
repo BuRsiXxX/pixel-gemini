@@ -8,16 +8,6 @@ device, logs into a user-supplied Gmail account, and retrieves the
 
 ---
 
-## Project Structure
-
-```
-pixel-gemini/
-├── device_simulator.py   # Android Pixel 10 Pro device simulation
-├── google_automation.py  # Google One login and offer detection
-├── config.py             # Configuration and constants
-├── requirements.txt      # Python dependencies
-└── README.md             # This file
-```
 
 ---
 
