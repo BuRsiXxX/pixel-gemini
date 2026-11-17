@@ -1,11 +1,7 @@
 """
-Configuration and constants for the Pixel 10 Pro Google One Gemini Bot.
-"""
+Configuration and constants for the Pixel 10 Pro Google One
 
 import os
-
-# ── Telegram ──────────────────────────────────────────────────────────────────
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 
 # ── Device specs – Google Pixel 10 Pro (Android 16) ──────────────────────────
 DEVICE_MODEL = "Pixel 10 Pro"
@@ -17,9 +13,7 @@ BUILD_ID = "AP4A.250405.002"
 CHROME_VERSION = "124.0.6367.82"
 CHROME_MAJOR_VERSION = 124
 
-# Pool of realistic Pixel 10 Pro user-agent strings.
-# The actual UA is assembled dynamically in device_simulator.py by
-# substituting the per-session Chrome version patch suffix.
+
 USER_AGENT_TEMPLATES = [
     (
         "Mozilla/5.0 (Linux; Android {android}; {model} Build/{build}; wv) "
@@ -56,11 +50,6 @@ WEBDRIVER_TIMEOUT = 30          # seconds – explicit wait
 IMPLICIT_WAIT = 10              # seconds
 PAGE_LOAD_TIMEOUT = 60          # seconds
 HEADLESS = True                 # always headless on Replit
-
-# ── Session storage ───────────────────────────────────────────────────────────
-# In-memory dict keyed by Telegram chat_id.
-# Values: {"email": ..., "password": ..., "device": <DeviceProfile>, "offer_link": ...}
-SESSION_STORE: dict = {}
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 LOG_LEVEL = "INFO"
